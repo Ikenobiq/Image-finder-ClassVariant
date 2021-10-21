@@ -1,27 +1,37 @@
-// import ".";
 import { Component } from "react";
+// import { initialState } from "../initialState";
 import ImageGallery from "./ImageGallery/ImageGallery";
-import axios from "axios";
-axios.defaults.baseURL = "https://pixabay.com/api";
+import feachImages from "./feachImages";
+import SearchBar from "./SearchBar/SearchBar";
 
 class App extends Component {
   state = {
     listImages: [],
+    query: "",
+    page: "1",
   };
-
-  componentDidMount() {
-    axios
-      .get(
-        `?q=flora&page=1&key=23400298-f5ccb6ec4bc6d2911c7e89aba&image_type=photo&orientation=horizontal&per_page=12`
-      )
-      .then((response) => {
-        console.log(response);
-        this.setState({ listImages: response.data.hits });
+  onSubmit = (query) => {
+    this.setState({ query });
+  };
+  getImages = async () => {
+    const { query, page } = this.state;
+    try {
+      const hits = await feachImages({ query, page });
+      console.log(hits);
+      this.setState({
+        listImages: hits,
       });
+    } catch {}
+  };
+  componentDidUpdate(_, prevState, __) {
+    if (prevState.query !== this.state.query) {
+      this.getImages();
+    }
   }
   render() {
     return (
       <div className="App">
+        <SearchBar onSubmit={this.onSubmit} />
         <ImageGallery listImages={this.state.listImages} />
       </div>
     );
