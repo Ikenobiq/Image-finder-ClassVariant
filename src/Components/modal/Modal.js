@@ -1,8 +1,21 @@
 import { Component } from "react";
+import PropTypes from "prop-types";
 class Modal extends Component {
-  // componentDidMount {
 
-  // }
+  componentDidMount() {
+    window.addEventListener("keydown", this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("keydown", this.handleKeyDown);
+  }
+
+  handleKeyDown = (e) => {
+    if (e.code === "Escape") {
+      this.props.closeModal();
+    }
+  };
+
   render() {
     return (
       <div className="Overlay">
@@ -10,13 +23,15 @@ class Modal extends Component {
           <img
             src={this.props.largeImageURL}
             alt={this.props.tags}
-            width="50%"
-            height="50%"
+            className="modal-img"
           />
         </div>
       </div>
     );
   }
 }
-
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  // children: PropTypes.node.isRequired,
+};
 export default Modal;

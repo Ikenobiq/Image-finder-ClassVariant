@@ -161,8 +161,6 @@ img {
 
 .Overlay {
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -206,4 +204,11 @@ img {
 .Button:hover,
 .Button:focus {
   background-color: #303f9f;
+}
+.modal-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  height: 75%;
 }

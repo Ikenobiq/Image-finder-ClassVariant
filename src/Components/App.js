@@ -65,6 +65,10 @@ class App extends Component {
   onImgClick = (largeImageURL, tags) => {
     this.setState({ modal: true, largeImageURL, tags });
   };
+  closeModal = () => {
+    this.setState({modal: false})
+  }
+
   render() {
     return (
       <div className="App">
@@ -78,7 +82,7 @@ class App extends Component {
         )}
         {this.state.loader && <CustomLoader />}
         {this.state.modal && (
-          <Modal
+          <Modal closeModal={this.closeModal}
             largeImageURL={this.state.largeImageURL}
             tags={this.state.tags}
           />
