@@ -15,11 +15,16 @@ class Modal extends Component {
       this.props.closeModal();
     }
   };
+  hendleOverlay = (e) => {
+    if (e.target === e.currentTarget) {
+      this.props.closeModal();
+    }
+  };
 
   render() {
     return (
-      <div className="Overlay">
-        <div className="Modal">
+      <div className="Overlay" onClick={this.hendleOverlay}>
+        <div className="Modal" onClick={this.hendleOverlay}>
           <img
             src={this.props.largeImageURL}
             alt={this.props.tags}
@@ -32,6 +37,5 @@ class Modal extends Component {
 }
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  // children: PropTypes.node.isRequired,
 };
 export default Modal;
