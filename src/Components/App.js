@@ -1,6 +1,6 @@
 import { Component } from "react";
 import ImageGallery from "./ImageGallery/ImageGallery";
-import feachImages from "./feachImages";
+import fetchImages from "./fetchImages";
 import SearchBar from "./SearchBar/SearchBar";
 import LoadMoreButton from "./LoadMoreButton/LoadMoreButton";
 import CustomLoader from "./Loader/Loader";
@@ -23,7 +23,7 @@ class App extends Component {
     const { query, page } = this.state;
     this.setState({ loader: true });
     try {
-      const hits = await feachImages({ query, page });
+      const hits = await fetchImages({ query, page });
       console.log(hits);
       this.setState({
         listImages: hits,
@@ -46,7 +46,7 @@ class App extends Component {
     const { query, page } = this.state;
     this.setState({ loader: true });
     try {
-      const hits = await feachImages({ query, page: page + 1 });
+      const hits = await fetchImages({ query, page: page + 1 });
       this.setState((prevState) => {
         return {
           page: prevState.page + 1,
@@ -66,8 +66,8 @@ class App extends Component {
     this.setState({ modal: true, largeImageURL, tags });
   };
   closeModal = () => {
-    this.setState({modal: false})
-  }
+    this.setState({ modal: false });
+  };
 
   render() {
     return (
@@ -82,7 +82,8 @@ class App extends Component {
         )}
         {this.state.loader && <CustomLoader />}
         {this.state.modal && (
-          <Modal closeModal={this.closeModal}
+          <Modal
+            closeModal={this.closeModal}
             largeImageURL={this.state.largeImageURL}
             tags={this.state.tags}
           />

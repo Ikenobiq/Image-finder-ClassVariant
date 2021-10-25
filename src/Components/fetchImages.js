@@ -1,6 +1,6 @@
 import axios from "axios";
 axios.defaults.baseURL = "https://pixabay.com/api";
-const feachImages = ({ query, page }) => {
+const fetchImages = ({ query, page }) => {
   return axios
     .get(
       `?q=${query}&page=${page}&key=23400298-f5ccb6ec4bc6d2911c7e89aba&image_type=photo&orientation=horizontal&per_page=12`
@@ -10,4 +10,4 @@ const feachImages = ({ query, page }) => {
       return response.data.hits;
     });
 };
-export default feachImages;
+export default fetchImages;
